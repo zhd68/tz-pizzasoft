@@ -1,0 +1,16 @@
+{
+    "log_lavel": "debug",
+    "x_auth_key": "qwerty123",
+    "listen": {
+        "bind_ip": "localhost",
+        "port": "8080"
+    },
+    "storage_in_memory": false,
+    "db": {
+        "username": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "port": "5432",
+        "database": "test"
+    }
+}
