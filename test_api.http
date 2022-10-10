@@ -1,0 +1,142 @@
+@Host = localhost
+@Port = 8080
+@Key = qwerty123
+
+GET /heartbeat HTTP/1.1
+Host: {{Host}}:{{Port}}
+
+### Test /orders
+
+POST /orders HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+{
+    "items": [1, 2, 3, 4, 5, 6]
+}
+
+###
+
+POST /orders HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+{
+    "items": []
+}
+
+###
+
+POST /orders HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+{
+    "items": [1, 1, 1, 1, 8, 4]
+}
+
+###
+
+POST /orders HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+{
+    "items": [-1, 1, 1, 1, 8, 4]
+}
+
+###
+
+POST /orders HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+{
+    "items": [5001, 1, 1, 1, 8, 4]
+}
+
+### Test /orders/{order_id}/items
+
+POST /orders/aaa/items HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+[7, 8, 9]
+
+###
+
+POST /orders/bbb/items HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+[7, 8, 9]
+
+###
+
+POST /orders/aaa/items HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+[]
+
+###
+
+POST /orders/aaa/items HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+[-1]
+
+###
+
+POST /orders/aaa/items HTTP/1.1
+Host: {{Host}}:{{Port}}
+content-type: application/json
+
+[5001]
+
+### /orders/{order_id}
+
+GET /orders/aaa HTTP/1.1
+Host: {{Host}}:{{Port}}
+
+### 
+
+GET /orders/aaac HTTP/1.1
+Host: {{Host}}:{{Port}}
+
+### /orders/{order_id}/done
+
+POST /orders/aaa/done HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
+
+### 
+
+POST /orders/aaa/done HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
+
+### 
+
+POST /orders/aaac/done HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
+
+### /orders/[?done=1|0]
+
+GET /orders/ HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
+
+###
+
+GET /orders/?done=0 HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
+
+###
+
+GET /orders/?done=1 HTTP/1.1
+Host: {{Host}}:{{Port}}
+X-Auth-Key: {{Key}}
